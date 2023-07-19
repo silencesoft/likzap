@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  likzap:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    volumes:
+      - ./src:/app/src
+      - ./nodemon.json:/app/nodemon.json
+      - ./data:/app/data
+    container_name: likzap
+    command: yarn dev
