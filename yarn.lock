@@ -268,6 +268,11 @@ cross-spawn@^7.0.0:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+db-local@^2.9.1:
+  version "2.9.1"
+  resolved "https://registry.yarnpkg.com/db-local/-/db-local-2.9.1.tgz#2553ca6b6ff475cefe86dfc5a3bc41161d3d6e47"
+  integrity sha512-jLhZBfj9HPjImcBGfZtxLGC+ufQZTnYuYQUGnt2+XvW1eC6Fv9xf5AabVK9w5yuUpVqRDgsEQJfEw2RAix7BVA==
+
 debug@^3.2.7:
   version "3.2.7"
   resolved "https://registry.yarnpkg.com/debug/-/debug-3.2.7.tgz#72580b7e9145fb39b6676f9c5e5fb100b934179a"

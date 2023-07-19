@@ -5,6 +5,9 @@ Object.assign(global, { WebSocket: require('ws') });
 import dotenv from 'dotenv';
 import { RelayPool } from 'nostr-relaypool';
 import { Kind, nip19 } from 'nostr-tools';
+import crypto from 'node:crypto';
+
+import { Zaps } from './utils/database';
 
 dotenv.config();
 
@@ -30,6 +33,13 @@ pool.subscribe(
   nostrRelays,
   (event, _isAfterEose, _relayURL) => {
     console.log('event', event);
+    const zap = Zaps.create({
+      _id: crypto.randomBytes(16).toString("hex"),
+      author: event.pubkey,
+      event: event.id,
+      zaps: 21
+    });
+    zap.save();
   }
 );
 
