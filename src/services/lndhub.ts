@@ -1,6 +1,6 @@
 import fetch from 'node-fetch';
 
-import { Balance, Invoice, InvoiceResponse, PaymentResponse, Server } from '../interfaces/lndhub';
+import { Balance, CheckPaymentResponse, Invoice, InvoiceResponse, PaymentResponse, Server } from '../interfaces/lndhub';
 import { request } from '../utils/request';
 
 const defaultUrl = 'lndhub://user:password@http://localhost';
@@ -95,7 +95,7 @@ export class LndhubRestClient {
     return undefined;
   }
 
-  async getPayment(paymentHash: string): Promise<any> {
+  async getPayment(paymentHash: string): Promise<CheckPaymentResponse | undefined> {
     const access_token = await this.authentication();
     const url = this.getUrl();
 
