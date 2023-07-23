@@ -32,7 +32,8 @@ Modify the environment variables file:
 - USER_SECRET_KEY : Your hex secret key
 - NOSTR_RELAYS : A list of relays comma separated
 - LNDHUB_URL : LNDHub server
-- ZAP_VALUE : Zap amount
+- DEFAULT_ZAP_VALUE : Default zap amount, empty if you only want specific reactions zaps.
+- REACTION_VALUE_* : Reaction zap value. Emoji or string and value. Sample: 🤙|21 - +|1
 
 * There is a known bug with yarn build in nostr-relaypool library
 

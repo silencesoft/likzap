@@ -2,20 +2,30 @@ import { finishEvent, nip57, type Event as NostrEvent } from 'nostr-tools';
 import fetch from 'node-fetch';
 
 import { pool } from '..';
-import { nostrRelays, publicKey, secretKey, zapValue } from '../constants/config';
+import { nostrRelays, reactionsValues, secretKey, zapValue } from '../constants/config';
 import { getProfile } from './profile';
 import { connectToLndhubApi } from '../utils/lndhubapi';
 import { saveZap, zapExists } from '../utils/database';
 
 export const doPayment = async (event: NostrEvent) => {
+  const { content } = event;
+  const isReaction = reactionsValues.filter(reaction => reaction.type === content);
+  let amount = 0;
+
+  if (isReaction.length) {
+    console.log(event);
+    amount = isReaction[0].value;
+  } else {
+    amount = parseInt(zapValue);
+  }
+
   const authorTag = event.tags.filter((tag: string[]) => tag[0] === 'p');
   const noteTag = event.tags.filter((tag: string[]) => tag[0] === 'e');
   const author = authorTag.length ? authorTag[0][1] : '';
   const note = noteTag.length ? noteTag[0][1] : '';
 
-  if (!zapExists(note)) {
+  if (!zapExists(note) && amount && author) {
     console.log(`Starting payment to ${note}.`);
-    const amount = parseInt(zapValue);
     const invoice = await createInvoice(author, note, amount);
     const lndhub = await connectToLndhubApi();
 

@@ -45,7 +45,7 @@ export const getMetadata = async (authorId: string, kind: Kind = Kind.Metadata) 
   return metadata;
 };
 
-export const extractProfileMetadataContent = (profileMetadata: any) => JSON.parse(profileMetadata.content);
+export const extractProfileMetadataContent = (profileMetadata: any) => profileMetadata?.content && JSON.parse(profileMetadata.content) || {};
 
 export const getProfile = async (authorId: string): Promise<any> => {
   const metadataPromise = getMetadata(authorId);
